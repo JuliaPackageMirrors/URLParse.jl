@@ -5,19 +5,21 @@ scheme://netloc/path;parameters?query#fragment
 
 URLComponents
 -------------
-The parsed URL components are stored in an instance of URLComponents. 
+The parsed URL components are stored and returned in an instance of URLComponents. 
 
 Component fields and accessor methods:
-*   **scheme** : Member variable
-*   **netloc** : Member variable
-*   **url** : Member variable
-*   **params** : Member variable
-*   **query** : Member variable
-*   **fragment** : Member variable
+*   **scheme**
+*   **netloc**
+*   **url**
+*   **params**
+*   **query**
+*   **fragment**
 *   **username(u::URLComponents)** : Extracts username from the netloc field. Returns a string if present or nothing otherwise.
 *   **password(u::URLComponents)** : Extracts password from the netloc field. Returns a string if present or nothing otherwise.
 *   **hostname(u::URLComponents)** : Extracts hostname from the netloc field. Returns a string if present or nothing otherwise.
 *   **port(u::URLComponents)** : Extracts port from the netloc field. Returns an int if present or nothing otherwise.
+
+There is an internal cache of URLComponents maintained as an optimization for repeated use of same URL string.
 
 
 APIs
