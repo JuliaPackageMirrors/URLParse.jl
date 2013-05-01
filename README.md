@@ -44,7 +44,7 @@ TODO
 NOTE
 ----
 In addition to the methods documented above, the following are also exported, in anticipation of being useful elsewhere.
-*   urlsplit and urlunsplit: Similar to urlparse and urlunparse, but ignores the 'parameters' part of the url. That is, assumes URLs of form scheme://netloc/path?query#fragment.
-*   rsearch: Search in a string from end to beginning. Similar to Base.search, but in the reverse direction.
-*   rsplit: Split a string with a delimiter starting from the end. Similar to Base.split but in the reverse direction.
+*   **urlsplit** and **urlunsplit**: Similar to urlparse and urlunparse, but ignores the 'parameters' part of the url. That is, assumes URLs of form scheme://netloc/path?query#fragment.
+*   **rsearch**: Search in a string from end to beginning. Similar to Base.search, but in the reverse direction.
+*   **rsplit**: Split a string with a delimiter starting from the end. Similar to Base.split but in the reverse direction.
 
