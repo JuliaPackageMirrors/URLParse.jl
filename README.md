@@ -26,7 +26,7 @@ APIs
 ----
 <dl>
     <dt>urlparse(url::String)</dt>
-    <dd>Parse a URL into 6 components: <scheme>://<netloc>/<path>;<params>?<query>#<fragment>. Returns an instance of URLComponents.</dd>
+    <dd>Parse a URL into 6 components: <i>scheme://netloc/path;params?query#fragment</i>. Returns an instance of URLComponents.</dd>
     <dt>urlunparse(u::URLComponents)</dt>
     <dd>Join back 6 components of the URL back to recreate a URL string.</dd>
     <dt>urldefrag(url::String)</dt>
