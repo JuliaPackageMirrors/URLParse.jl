@@ -159,12 +159,12 @@ end
 # <scheme>://<netloc>/<path>?<query>#<fragment>
 function urlsplit(url::String, scheme::String="", allow_fragments::Bool=true)
     key = (url, scheme, allow_fragments)
-    if(has(_parse_cache, key))
+    if(haskey(_parse_cache, key))
         return _parse_cache[key]
     end
     (length(_parse_cache) >= MAX_CACHE_SIZE) && empty!(_parse_cache)
     
-    netloc = query = fragment = ""
+    netloc = ""; query = ""; fragment = ""
     i = search(url, ':')
     if(i > 1)
         if(url[1:(i-1)] == "http")  # optimize the common case
