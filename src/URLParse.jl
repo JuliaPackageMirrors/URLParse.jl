@@ -1,9 +1,11 @@
 module URLParse
 
+import Base.copy
+
 export URLComponents,
         urlsplit, urlunsplit, urlparse, urlunparse, urldefrag,
         username, password, hostname, port,
-        rsearch, rsplit
+        rsearch, rsplit, copy
 
 include("strutils.jl")
 
@@ -42,6 +44,7 @@ const MAX_CACHE_SIZE = 20
 const _parse_cache = Dict{(String, String, Bool),URLComponents}()
 
 clear_cache() = empty!(_parse_cache)
+copy(up::URLComponents) = URLComponents(up.scheme, up.netloc, up.url, up.params, up.query, up.fragment)
 
 function _parse_user_name_password(up::URLComponents)
     netloc = up.netloc
@@ -234,7 +237,7 @@ end
 #    empty string.
 function urldefrag(url::String)
     if(contains(url, '#'))
-        up = urlparse(url)
+        up = copy(urlparse(url))
         frag = up.fragment
         up.fragment = ""
         defrag = urlunparse(up)
