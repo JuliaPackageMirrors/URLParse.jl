@@ -21,21 +21,19 @@ function rsplit(str::String, splitter, limit::Integer, keep_empty::Bool)
     i = start(str)
     n = endof(str)
     r = rsearch(str,splitter,n)
-    j, k = first(r)-1, last(r)
+    j = first(r)-1 
+    k = last(r)
     while((0 <= j < n) && (length(strs) != limit-1))
-        if(i < k)
-            if(keep_empty || (k < n))
-                unshift!(strs, str[k+1:n])
-            end
+        if(i <= k)
+            (keep_empty || (k < n)) && unshift!(strs, str[k+1:n])
             n = j
         end
-        if k <= j; j = prevind(str,j) end
+        (k <= j) && (j = prevind(str,j))
         r = rsearch(str,splitter,j)
-        j, k = first(r)-1, last(r)
+        j = first(r)-1
+        k = last(r)
     end
-    if(keep_empty || (n > 0))
-        unshift!(strs, str[1:n])
-    end
+    (keep_empty || (n > 0)) && unshift!(strs, str[1:n])
     return strs
 end
 rsplit(s::String, spl, n::Integer) = rsplit(s, spl, n, true)
