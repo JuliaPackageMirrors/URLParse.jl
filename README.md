@@ -3,6 +3,9 @@ A parser to parse URL string representation into components and re-create the UR
 scheme://netloc/path;parameters?query#fragment
 ````
 
+[![Build Status](https://travis-ci.org/tanmaykm/URLParse.jl.png)](https://travis-ci.org/tanmaykm/URLParse.jl)
+
+
 URLComponents
 -------------
 The parsed URL components are stored and returned in an instance of URLComponents. 
