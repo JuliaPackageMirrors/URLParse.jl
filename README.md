@@ -22,7 +22,7 @@ Component fields and accessor methods:
 *   **hostname(u::URLComponents)** : Extracts hostname from the netloc field. Returns a string if present or nothing otherwise.
 *   **port(u::URLComponents)** : Extracts port from the netloc field. Returns an int if present or nothing otherwise.
 
-There is an internal cache of URLComponents maintained as an optimization for repeated use of same URL string.
+There is an internal cache of URLComponents maintained as an optimization for repeated use of same URL string. Therefore, the URLComponents instance returned from urlparse must not be modified. A copy may be created to be modified instrad.
 
 
 APIs
