@@ -3,6 +3,8 @@ A parser to parse URL string representation into components and re-create the UR
 scheme://netloc/path;parameters?query#fragment
 ````
 
+Also has methods to escape and unescape strings for URLs and form data. (source:  https://github.com/dirk/HTTP.jl/blob/master/src/HTTP/Util.jl)
+
 [![Build Status](https://travis-ci.org/tanmaykm/URLParse.jl.png)](https://travis-ci.org/tanmaykm/URLParse.jl)
 
 
@@ -34,6 +36,14 @@ APIs
     <dd>Join back 6 components of the URL back to recreate a URL string.</dd>
     <dt>urldefrag(url::String)</dt>
     <dd>Removes any existing fragment from URL. Returns a tuple of the defragmented URL and the fragment (empty string if none were there).</dd>
+    <dt>escape(str::String)</dt>
+    <dd>Returns an escaped form of the string that can be used as a URL parameter</dd>
+    <dt>unescape(str::String)</dt>
+    <dd>Performs the reverse operation of escape</dd>
+    <dt>escape_form(str::String)</dt>
+    <dd>Returns an escaped string that can be used in a HTML form submit</dd>
+    <dt>unescape_form(str::String)</dt>
+    <dd>Performs the reverse operation of escape_form</dd>
 </dl>
 
 

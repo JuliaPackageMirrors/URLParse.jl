@@ -5,9 +5,11 @@ import Base.copy
 export URLComponents,
         urlsplit, urlunsplit, urlparse, urlunparse, urldefrag,
         username, password, hostname, port,
-        rsearch, rsplit, copy
+        rsearch, rsplit, copy,
+        escape, escape_form, escape_with, unescape, unescape_form
 
 include("strutils.jl")
+include("urlescape.jl")
 
 # A classification of schemes ('' means apply by default)
 const uses_relative = ["hdfs", "ftp", "http", "gopher", "nntp", "imap", "wais", "file", "https", "shttp", "mms", "prospero", "rtsp", "rtspu", "", "sftp", "svn", "svn+ssh"]
