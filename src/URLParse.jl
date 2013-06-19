@@ -5,7 +5,8 @@ import Base.copy
 export URLComponents,
         urlsplit, urlunsplit, urlparse, urlunparse, urldefrag,
         username, password, hostname, port,
-        rsearch, rsplit, copy,
+        #rsearch, 
+        rsplit, copy,
         escape, escape_form, escape_with, unescape, unescape_form
 
 include("strutils.jl")
@@ -69,7 +70,7 @@ function _parse_hostname_port(up::URLComponents)
     netloc = rsplit(up.netloc, '@', 2)[end]
     lb = search(netloc, '[')
     rb = search(netloc, ']')
-    colon = rsearch(netloc, ':')
+    colon = _rsearch(netloc, ':')
     if((lb > 0) && (rb > 0))
         up._hostname = lowercase(netloc[lb+1:rb-1])
     elseif(colon > 0)
@@ -116,7 +117,7 @@ function port(up::URLComponents)
 end
 
 function _splitparams(url)
-    slash_pos = rsearch(url, '/')
+    slash_pos = _rsearch(url, '/')
     sc_pos = 0
     if(slash_pos > 0)
         sc_pos = search(url, ';', slash_pos)

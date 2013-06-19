@@ -2,25 +2,25 @@
 typealias Chars Union(Char,AbstractVector{Char},Set{Char})
 
 # search in a string from the reverse direction
-function rsearch(s::String, c::Chars, i::Integer)
+function _rsearch(s::String, c::Chars, i::Integer)
     l = length(s)
     ret = search(reverse(s), c, l-i+1)
     (0 == ret) ? 0 : (l-ret+1)
 end
-rsearch(s::String, c::Chars) = rsearch(s,c,endof(s))
+_rsearch(s::String, c::Chars) = _rsearch(s,c,endof(s))
 
-function rsearch(s::String, t::String, i::Integer)
+function _rsearch(s::String, t::String, i::Integer)
     l = length(s)
     r = search(reverse(s), reverse(t), l-i+1)
     (0 == r.start) ? r : Range1(l-r.start-r.len+2, r.len)
 end
-rsearch(s::String, t::String) = rsearch(s,t,endof(s))
+_rsearch(s::String, t::String) = _rsearch(s,t,endof(s))
 
 function rsplit(str::String, splitter, limit::Integer, keep_empty::Bool)
     strs = String[]
     i = start(str)
     n = endof(str)
-    r = rsearch(str,splitter,n)
+    r = _rsearch(str,splitter,n)
     j = first(r)-1 
     k = last(r)
     while((0 <= j < n) && (length(strs) != limit-1))
@@ -29,7 +29,7 @@ function rsplit(str::String, splitter, limit::Integer, keep_empty::Bool)
             n = j
         end
         (k <= j) && (j = prevind(str,j))
-        r = rsearch(str,splitter,j)
+        r = _rsearch(str,splitter,j)
         j = first(r)-1
         k = last(r)
     end
