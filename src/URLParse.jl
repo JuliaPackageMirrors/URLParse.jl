@@ -5,8 +5,7 @@ import Base.copy
 export URLComponents,
         urlsplit, urlunsplit, urlparse, urlunparse, urldefrag,
         username, password, hostname, port,
-        #rsearch, 
-        rsplit, copy,
+        copy,
         escape, escape_form, escape_with, unescape, unescape_form
 
 include("strutils.jl")
@@ -52,7 +51,7 @@ copy(up::URLComponents) = URLComponents(up.scheme, up.netloc, up.url, up.params,
 function _parse_user_name_password(up::URLComponents)
     netloc = up.netloc
     if(contains(netloc, '@'))
-        userinfo = rsplit(netloc, '@', 2)[1]
+        userinfo = _rsplit(netloc, '@', 2)[1]
         if(contains(userinfo, ':'))
             spl = split(userinfo, ':', 2)
             up._username = spl[1]
@@ -67,7 +66,7 @@ function _parse_user_name_password(up::URLComponents)
 end
 
 function _parse_hostname_port(up::URLComponents)
-    netloc = rsplit(up.netloc, '@', 2)[end]
+    netloc = _rsplit(up.netloc, '@', 2)[end]
     lb = search(netloc, '[')
     rb = search(netloc, ']')
     colon = _rsearch(netloc, ':')
