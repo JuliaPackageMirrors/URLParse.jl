@@ -8,7 +8,7 @@ export URLComponents,
         copy,
         escape, escape_form, escape_with, unescape, unescape_form
 
-include("strutils.jl")
+#include("strutils.jl")
 include("urlescape.jl")
 
 # A classification of schemes ('' means apply by default)
@@ -51,7 +51,7 @@ copy(up::URLComponents) = URLComponents(up.scheme, up.netloc, up.url, up.params,
 function _parse_user_name_password(up::URLComponents)
     netloc = up.netloc
     if(contains(netloc, '@'))
-        userinfo = _rsplit(netloc, '@', 2)[1]
+        userinfo = rsplit(netloc, '@', 2)[1]
         if(contains(userinfo, ':'))
             spl = split(userinfo, ':', 2)
             up._username = spl[1]
@@ -66,10 +66,10 @@ function _parse_user_name_password(up::URLComponents)
 end
 
 function _parse_hostname_port(up::URLComponents)
-    netloc = _rsplit(up.netloc, '@', 2)[end]
+    netloc = rsplit(up.netloc, '@', 2)[end]
     lb = search(netloc, '[')
     rb = search(netloc, ']')
-    colon = _rsearch(netloc, ':')
+    colon = rsearch(netloc, ':')
     if((lb > 0) && (rb > 0))
         up._hostname = lowercase(netloc[lb+1:rb-1])
     elseif(colon > 0)
@@ -116,7 +116,7 @@ function port(up::URLComponents)
 end
 
 function _splitparams(url)
-    slash_pos = _rsearch(url, '/')
+    slash_pos = rsearch(url, '/')
     sc_pos = 0
     if(slash_pos > 0)
         sc_pos = search(url, ';', slash_pos)
