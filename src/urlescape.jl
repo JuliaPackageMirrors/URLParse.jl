@@ -20,12 +20,12 @@ end
 
 
 # Escaping
-control_array = convert(Array{Uint8,1}, vec(0:(parseint("1f", 16))))
+control_array = convert(Array{Uint8,1}, [vec(0:(parseint("1f", 16)))])
 control = utf8(ascii(control_array)*"\x7f")
 space = utf8(" ")
 delims = utf8("%<>\"")
 unwise   = utf8("{}|\\^`")
-nonascii_array = convert(Array{Uint8,1}, vec(parseint("80", 16):(parseint("ff", 16))))
+nonascii_array = convert(Array{Uint8,1}, [vec(parseint("80", 16):(parseint("ff", 16)))])
 
 reserved = utf8(",;/?:@&=+\$![]'*#")
 # Strings to be escaped
