@@ -69,19 +69,19 @@ function _parse_hostname_port(up::URLComponents)
     netloc = rsplit(up.netloc, '@', 2)[end]
     lb = search(netloc, '[')
     rb = search(netloc, ']')
-    colon = rsearch(netloc, ':')
+    cpos = rsearch(netloc, ':')
     if((lb > 0) && (rb > 0))
         up._hostname = lowercase(netloc[lb+1:rb-1])
-    elseif(colon > 0)
-        up._hostname = lowercase(netloc[1:colon-1])
+    elseif(cpos > 0)
+        up._hostname = lowercase(netloc[1:cpos-1])
     elseif(length(netloc) > 0)
         up._hostname = lowercase(netloc)
     else
         up._hostname = up._port = false
     end
 
-    if((false != up._port) && (colon > 0) && ((rb == 0) || (colon > rb)))
-        up._port = int(netloc[colon+1:end])
+    if((false != up._port) && (cpos > 0) && ((rb == 0) || (cpos > rb)))
+        up._port = int(netloc[cpos+1:end])
     else
         up._port = false
     end
