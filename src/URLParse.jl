@@ -50,9 +50,9 @@ copy(up::URLComponents) = URLComponents(up.scheme, up.netloc, up.url, up.params,
 
 function _parse_user_name_password(up::URLComponents)
     netloc = up.netloc
-    if(contains(netloc, '@'))
+    if('@' in netloc)
         userinfo = rsplit(netloc, '@', 2)[1]
-        if(contains(userinfo, ':'))
+        if(':' in userinfo)
             spl = split(userinfo, ':', 2)
             up._username = spl[1]
             up._password = (length(spl) > 1) ? spl[2] : false
@@ -153,7 +153,7 @@ end
 # <scheme>://<netloc>/<path>;<params>?<query>#<fragment>
 function urlparse(url::String, scheme::String="", allow_fragments::Bool=true)
     up = urlsplit(url, scheme, allow_fragments)
-    if(contains(uses_params, up.scheme) && contains(url, ';'))
+    if (up.scheme in uses_params) && (';' in url)
         up.url, up.params = _splitparams(up.url)
     end
     up
@@ -178,17 +178,17 @@ function urlsplit(url::String, scheme::String="", allow_fragments::Bool=true)
             if(beginswith(url, "//"))
                 netloc, url = _splitnetloc(url, 3)
             end
-            if(allow_fragments && contains(url, '#'))
+            if(allow_fragments && ('#' in url))
                 url, fragment = tuple(split(url, '#', 2)...)
             end
-            if(contains(url, '?'))
+            if('?' in url)
                 url, query = tuple(split(url, '?', 2)...)
             end
             return _parse_cache[key] = URLComponents(scheme, netloc, url, "", query, fragment)
         end
         urlinvalidchars = false
         for ci in 1:(i-1)
-            (!contains(scheme_chars, url[ci])) && (urlinvalidchars = true) && break
+            !(url[ci] in scheme_chars) && (urlinvalidchars = true) && break
         end
         if(!urlinvalidchars)
             try
@@ -203,12 +203,12 @@ function urlsplit(url::String, scheme::String="", allow_fragments::Bool=true)
         netloc, url = _splitnetloc(url, 3)
     end
 
-    scheme_uses_fragment = contains(uses_fragment, scheme)
-    scheme_uses_query = contains(uses_query, scheme)
-    if (allow_fragments && scheme_uses_fragment && contains(url, '#'))
+    scheme_uses_fragment = (scheme in uses_fragment)
+    scheme_uses_query = (scheme in uses_query)
+    if (allow_fragments && scheme_uses_fragment && ('#' in url))
         url, fragment = tuple(split(url, '#', 2)...)
     end
-    if (scheme_uses_query && contains(url, '?'))
+    if (scheme_uses_query && ('?' in url))
         url, query = tuple(split(url, '?', 2)...)
     end
     return _parse_cache[key] = URLComponents(scheme, netloc, url, "", query, fragment)
@@ -218,7 +218,7 @@ urlunparse(up::URLComponents) = urlunsplit(up, true)
 function urlunsplit(up::URLComponents, add_params::Bool=false)
     has_netloc = (length(up.netloc) > 0)
     has_scheme = (length(up.scheme) > 0)
-    scheme_uses_netloc = has_scheme && contains(uses_netloc, up.scheme)
+    scheme_uses_netloc = has_scheme && (up.scheme in uses_netloc)
     url = (add_params && (length(up.params) > 0)) ? (up.url * ";" * up.params) : up.url
     if (has_netloc || (has_scheme && scheme_uses_netloc && !beginswith(url, "//")))
         if((length(url) > 0) && (url[1] != '/')) 
@@ -238,7 +238,7 @@ end
 #    the URL contained no fragments, the second element is the
 #    empty string.
 function urldefrag(url::String)
-    if(contains(url, '#'))
+    if('#' in url)
         up = copy(urlparse(url))
         frag = up.fragment
         up.fragment = ""
