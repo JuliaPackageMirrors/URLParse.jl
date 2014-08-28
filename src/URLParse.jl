@@ -1,5 +1,12 @@
 module URLParse
 
+warn("""
+This package has been deprecated in favour of JuliaWeb/URIParser.jl
+https://github.com/JuliaWeb/URIParser.jl
+As of Julia 0.4 this package will no longer be installable 
+through `Pkg.add`. Please convert your code according.""")
+
+
 import Base.copy
 
 export URLComponents,

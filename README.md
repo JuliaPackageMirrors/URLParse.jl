@@ -1,3 +1,10 @@
+# URLParse.jl
+## This package has been deprecated in favour of [JuliaWeb/URIParser.jl](https://github.com/JuliaWeb/URIParser.jl).
+
+As of Julia 0.4 this package will no longer be installable through `Pkg.add`. Please convert your code according.
+
+---
+
 A parser to parse URL string representation into components and re-create the URL string back from components. Modeled after the python urlparse library. A URL can be of the form:
 ````
 scheme://netloc/path;parameters?query#fragment
